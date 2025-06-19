@@ -94,3 +94,49 @@ searchTaskInput.addEventListener('keyup', function () {
 
 addTaskButton.addEventListener('click', addTask);
 document.addEventListener('DOMContentLoaded', loadTasks);
+// Function to generate random meteors
+function generateMeteor() {
+    const meteor = document.createElement('div');
+    meteor.classList.add('meteor');
+    
+    // Randomize position and speed
+    const startX = Math.random() * window.innerWidth; // Random start X position
+    const startY = -50; // Start from top of the screen
+    const delay = Math.random() * 2; // Random delay for falling
+    const duration = Math.random() * 3 + 2; // Randomize speed (falling duration)
+
+    meteor.style.left = `${startX}px`;
+    meteor.style.animationDuration = `${duration}s`;
+    meteor.style.animationDelay = `${delay}s`;
+
+    // Append meteor to the background
+    document.getElementById('meteorBackground').appendChild(meteor);
+
+    // Remove meteor after animation ends
+    setTimeout(() => {
+        meteor.remove();
+    }, (duration + delay) * 1000); // Remove meteor after it finishes falling
+}
+
+// Continuously generate meteors every 300ms
+setInterval(generateMeteor, 300);
+
+// Generate random particles
+function generateParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    // Randomize position
+    particle.style.left = Math.random() * window.innerWidth + 'px'; 
+    particle.style.animationDelay = Math.random() * 5 + 's'; // Randomize delay
+
+    document.body.appendChild(particle);
+
+    // Remove particle after it disappears
+    setTimeout(() => {
+        particle.remove();
+    }, 5000); // Match the animation duration
+}
+
+// Continuously generate particles every 300ms
+setInterval(generateParticle, 300);

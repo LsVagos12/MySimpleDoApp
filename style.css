@@ -1,162 +1,304 @@
-/* Latar belakang dengan gambar */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: url('images/my_app_background.jpg') no-repeat center center fixed;
-    background-size: cover;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Untuk menempatkan box sedikit ke atas */
+    align-items: flex-start;
     padding-top: 50px;
     box-sizing: border-box;
+    background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 400% 400%; /* Makes the gradient larger */
+    animation: rainbowBackground 6s ease infinite; /* Animation for rainbow movement */
 }
-
-/* Kontainer aplikasi */
-.container {
-    position: relative;
-    background: rgba(255, 255, 255, 0.9); /* Transparansi agar background terlihat */
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    z-index: 1;
-
-    /* Animasi muncul */
-    opacity: 0;
-    transform: scale(0.8);
-    animation: fadeInBox 0.7s ease-out forwards;
-
-    /* Gradien border */
-    border: 5px solid transparent;
-    background-clip: padding-box;
-}
-
-.container::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    border-radius: 10px;
-    background: linear-gradient(45deg, #4facfe, #00f2fe, #43e97b, #f8ffae); /* Gradien */
-    background-size: 200% 200%;
-    animation: gradientBorder 3s linear infinite; /* Animasi gradien */
-}
-
-/* Keyframes untuk animasi */
-@keyframes fadeInBox {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes gradientBorder {
+@keyframes rainbowBackground {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+/* Sparkles/Glowing particles */
+@keyframes sparkle {
+    0% {
+        transform: translateY(-100px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: sparkle 4s infinite;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.particle:nth-child(1) {
+    width: 5px;
+    height: 5px;
+    animation-duration: 2s;
+}
+
+.particle:nth-child(2) {
+    width: 3px;
+    height: 3px;
+    animation-duration: 3s;
+}
+
+.particle:nth-child(3) {
+    width: 7px;
+    height: 7px;
+    animation-duration: 4s;
+}
+
+/* Meteor Particles */
+#meteorBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.meteor {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: meteor-fall linear infinite;
+}
+
+@keyframes meteor-fall {
+    0% {
+        transform: translateY(-100vh) translateX(0);
+    }
+    100% {
+        transform: translateY(100vh) translateX(calc(100vw * 0.5 - 50%));
+    }
+}
+
+/* Blur effect on the background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/my_app_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(10px); /* Adjust the blur value here */
+    z-index: -1; /* Ensure background stays behind content */
+}
+
+/* Kontainer aplikasi */
+.container {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #4facfe, #00f2fe, #43e97b, #f8ffae); /* Gradien */
+  background-size: 200% 200%;
+  animation: gradientBorder 3s linear infinite; /* Animasi gradien */
+}
+
+.container:hover {
+  animation: bounce 0.5s ease-in-out;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  cursor: url("images/mylogo.png"), auto;
+}
+
+/* Keyframe for bouncing animation */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 /* Logo aplikasi */
 .logo {
-    max-width: 100px;
-    height: 100px; /* Tinggi dan lebar sama agar logo bulat */
-    border-radius: 50%; /* Membuat logo menjadi lingkaran */
-    margin: 0 auto 15px;
-    display: block;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  max-width: 100px;
+  height: 100px; /* Tinggi dan lebar sama agar logo bulat */
+  border-radius: 50%; /* Membuat logo menjadi lingkaran */
+  margin: 0 auto 15px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
 }
 
 /* Input pencarian tugas */
 .task-search input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 15px;
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 /* Input untuk tugas baru */
 .task-input {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .task-input input[type="text"] {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .task-input button {
-    padding: 10px 20px;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border: none;
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .task-input button:hover {
-    background: linear-gradient(to right, #00f2fe, #4facfe);
+  background: linear-gradient(to right, #00f2fe, #4facfe);
 }
 
 /* Daftar tugas */
 .task-list {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .task-list li {
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeInTask 0.4s ease-out;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeInTask 0.4s ease-out;
 }
 
 @keyframes fadeInTask {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .task-list li.completed {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-    text-decoration: line-through;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+  text-decoration: line-through;
 }
 
 .task-list li.pending {
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-    color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #b88a00;
 }
 
 /* Badge jumlah tugas */
 .badge {
-    background-color: white;
-    color: #4facfe;
-    padding: 10px 20px;
-    margin-top: 15px;
-    border-radius: 50px;
-    font-size: 0.95em;
-    font-weight: bold;
+  background-color: white;
+  color: #4facfe;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 50px;
+  font-size: 0.95em;
+  font-weight: bold;
 }
+/* Styling untuk bagian Instagram */
+.social-media {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #333;
+}
+
+.social-media p {
+  font-size: 16px;
+  margin: 0;
+  display: inline-block; /* Make the p tag inline for background effect */
+  padding: 10px 20px; /* Add padding to make the background box */
+  border-radius: 25px; /* Round the corners */
+  background-color: #f1f1f1; /* Light gray background */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-media a {
+  color: #55f425; /* Instagram orange color */
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.social-media p:hover {
+  background-color: #2ceb0a; /* Instagram orange color on hover */
+  transform: scale(1.05); /* Slight zoom-in effect on hover */
+}
+
+.social-media a:hover {
+  color: #fff; /* Change link color to white on hover */
+}
+/* Glowing Text for content */
+h1, h2 {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(33, 33, 33, 0.6), 0 0 30px rgba(0, 255, 255, 0.8);
+    color: white;
+    font-weight: 600;
+}
+
+/* Buttons or links can have a glowing effect too */
+.task-input button:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 1);
+    color: white;
+}
+
