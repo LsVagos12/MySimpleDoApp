@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MySimpleDo: Aplikasi Daftar Tugas Sederhana</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySimpleDo: Aplikasi Daftar Tugas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Latar belakang -->
+    <div class="background"></div>
+
+    <!-- Kontainer aplikasi -->
     <div class="container">
-      <div class="header">
-        <!-- Tambahkan tag <img> untuk logo di sini -->
-        <img src="images/mylogo.png" alt="MySimpleDo Logo" class="app-logo" />
+        <!-- Logo -->
+        <img src="images/mylogo.png" alt="MySimpleDo Logo" class="logo">
+
         <h1>MySimpleDo</h1>
-      </div>
-      <h2>Aplikasi Daftar Tugas Sederhana</h2>
+        <h2>Aplikasi Daftar Tugas Sederhana</h2>
 
-      <div class="task-input">
-        <input type="text" id="newTaskInput" placeholder="Tambahkan tugas baru..." />
-        <button id="addTaskButton">Tambah Tugas</button>
-      </div>
+        <!-- Pencarian -->
+        <div class="task-search">
+            <input type="text" id="searchTaskInput" placeholder="Cari tugas...">
+        </div>
 
-      <ul id="taskList" class="task-list">
-        <!-- Tugas akan ditampilkan di sini oleh JavaScript -->
-      </ul>
+        <!-- Input tugas baru -->
+        <div class="task-input">
+            <input type="text" id="newTaskInput" placeholder="Tambahkan tugas baru...">
+            <button id="addTaskButton">Tambah Tugas</button>
+        </div>
+
+        <!-- Daftar tugas -->
+        <ul id="taskList" class="task-list">
+            <!-- Tugas akan ditampilkan oleh JavaScript -->
+        </ul>
+
+        <!-- Badge jumlah tugas -->
+        <div id="taskCountBadge" class="badge">Tugas: 0</div>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>

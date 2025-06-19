@@ -1,109 +1,96 @@
-// Mengambil referensi elemen HTML
-const newTaskInput = document.getElementById("newTaskInput");
-const addTaskButton = document.getElementById("addTaskButton");
-const taskList = document.getElementById("taskList");
+const newTaskInput = document.getElementById('newTaskInput');
+const addTaskButton = document.getElementById('addTaskButton');
+const taskList = document.getElementById('taskList');
+const searchTaskInput = document.getElementById('searchTaskInput');
 
-// Array untuk menyimpan tugas-tugas
 let tasks = [];
 
-// Fungsi untuk menyimpan tugas ke localStorage
+// Menyimpan ke localStorage
 function saveTasks() {
-  localStorage.setItem("mySimpleDoTasks", JSON.stringify(tasks));
+    localStorage.setItem('mySimpleDoTasks', JSON.stringify(tasks));
 }
 
-// Fungsi untuk memuat tugas dari localStorage
+// Memuat data dari localStorage
 function loadTasks() {
-  const storedTasks = localStorage.getItem("mySimpleDoTasks");
-  if (storedTasks) {
-    tasks = JSON.parse(storedTasks);
-  }
-  displayTasks(); // Tampilkan tugas setelah dimuat
-}
-
-// Fungsi untuk menambahkan tugas baru
-function addTask() {
-  const taskDescription = newTaskInput.value.trim(); // Ambil nilai input dan hapus spasi di awal/akhir
-
-  if (taskDescription !== "") {
-    const newId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1;
-    tasks.push({
-      id: newId,
-      description: taskDescription,
-      status: "pending", // Status awal adalah 'pending'
-    });
-    newTaskInput.value = ""; // Kosongkan input setelah ditambahkan
-    saveTasks(); // Simpan tugas ke localStorage
-    displayTasks(); // Perbarui tampilan daftar tugas
-  } else {
-    alert("Deskripsi tugas tidak boleh kosong!");
-  }
-}
-
-// Fungsi untuk menampilkan (me-render) semua tugas ke HTML
-function displayTasks() {
-  taskList.innerHTML = ""; // Kosongkan daftar yang ada sebelum me-render ulang
-
-  tasks.forEach((task) => {
-    const listItem = document.createElement("li");
-    listItem.dataset.id = task.id; // Menyimpan ID tugas sebagai atribut data
-
-    if (task.status === "completed") {
-      listItem.classList.add("completed"); // Tambahkan kelas 'completed' jika tugas selesai
+    const storedTasks = localStorage.getItem('mySimpleDoTasks');
+    if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
     }
-
-    const taskText = document.createElement("span");
-    taskText.textContent = task.description;
-    listItem.appendChild(taskText);
-
-    const buttonContainer = document.createElement("div"); // Wadah untuk tombol
-
-    // Tombol Mark Complete/Pending
-    const completeButton = document.createElement("button");
-    completeButton.classList.add("complete-btn");
-    completeButton.textContent = task.status === "pending" ? "Selesai" : "Batal Selesai";
-    completeButton.onclick = () => toggleTaskStatus(task.id); // Panggil fungsi toggle status
-    buttonContainer.appendChild(completeButton);
-
-    // Tombol Hapus
-    const deleteButton = document.createElement("button");
-    deleteButton.classList.add("delete-btn");
-    deleteButton.textContent = "Hapus";
-    deleteButton.onclick = () => deleteTask(task.id); // Panggil fungsi hapus tugas
-    buttonContainer.appendChild(deleteButton);
-
-    listItem.appendChild(buttonContainer); // Tambahkan wadah tombol ke item daftar
-    taskList.appendChild(listItem); // Tambahkan item daftar ke daftar tugas utama
-  });
+    displayTasks();
 }
 
-// Fungsi untuk mengubah status tugas (selesai/belum selesai)
+// Menampilkan tugas ke browser
+function displayTasks() {
+    taskList.innerHTML = ''; // Kosongkan daftar tugas
+
+    tasks.forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.dataset.id = task.id;
+        listItem.classList.add(task.status === 'completed' ? 'completed' : 'pending');
+
+        const taskText = document.createElement('span');
+        taskText.textContent = task.description;
+
+        const buttonContainer = document.createElement('div');
+
+        const completeButton = document.createElement('button');
+        completeButton.textContent = task.status === 'pending' ? 'Selesai' : 'Batal';
+        completeButton.onclick = () => toggleTaskStatus(task.id);
+        buttonContainer.appendChild(completeButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Hapus';
+        deleteButton.onclick = () => deleteTask(task.id);
+        buttonContainer.appendChild(deleteButton);
+
+        listItem.appendChild(taskText);
+        listItem.appendChild(buttonContainer);
+        taskList.appendChild(listItem);
+    });
+
+    updateBadge();
+}
+
+// Update jumlah tugas
+function updateBadge() {
+    const badge = document.getElementById('taskCountBadge');
+    const pendingTasks = tasks.filter(task => task.status === 'pending').length;
+    badge.textContent = `Tugas: ${pendingTasks}`;
+}
+
+function addTask() {
+    const description = newTaskInput.value.trim();
+    if (description) {
+        tasks.push({ id: Date.now(), description, status: 'pending' });
+        newTaskInput.value = '';
+        saveTasks();
+        displayTasks();
+    }
+}
+
 function toggleTaskStatus(id) {
-  const taskIndex = tasks.findIndex((task) => task.id === id);
-  if (taskIndex > -1) {
-    tasks[taskIndex].status = tasks[taskIndex].status === "pending" ? "completed" : "pending";
-    saveTasks(); // Simpan perubahan status
-    displayTasks(); // Perbarui tampilan
-  }
+    const task = tasks.find(task => task.id === id);
+    if (task) {
+        task.status = task.status === 'pending' ? 'completed' : 'pending';
+        saveTasks();
+        displayTasks();
+    }
 }
 
-// Fungsi untuk menghapus tugas
 function deleteTask(id) {
-  // Filter array tasks, hanya menyisakan tugas yang ID-nya tidak sama dengan ID yang akan dihapus
-  tasks = tasks.filter((task) => task.id !== id);
-  saveTasks(); // Simpan perubahan setelah penghapusan
-  displayTasks(); // Perbarui tampilan
+    tasks = tasks.filter(task => task.id !== id);
+    saveTasks();
+    displayTasks();
 }
 
-// Event Listeners
-// Saat tombol 'Tambah Tugas' diklik
-addTaskButton.addEventListener("click", addTask);
-
-// Saat tombol Enter ditekan di input tugas
-newTaskInput.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    addTask();
-  }
+// Fitur pencarian
+searchTaskInput.addEventListener('keyup', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.task-list li').forEach(task => {
+        const text = task.querySelector('span').textContent.toLowerCase();
+        task.style.display = text.includes(query) ? 'flex' : 'none';
+    });
 });
 
-// Muat tugas saat halaman pertama kali dimuat
-document.addEventListener("DOMContentLoaded", loadTasks);
+addTaskButton.addEventListener('click', addTask);
+document.addEventListener('DOMContentLoaded', loadTasks);
