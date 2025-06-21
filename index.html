@@ -9,40 +9,103 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Latar belakang -->
-    <div id="meteorBackground"></div> <!-- Particle Meteor Background -->
-    
+    <!-- Latar belakang dengan gradien pelangi -->
+    <div class="background"></div>
+
     <!-- Kontainer aplikasi -->
     <div class="container">
-        <img src="images/mylogo.png" alt="MySimpleDo Logo" class="logo">
+        <!-- Pemilih Bahasa -->
+        <div class="language-switcher">
+            <button id="lang-id" class="lang-btn active" data-lang="id">ID</button>
+            <button id="lang-en" class="lang-btn" data-lang="en">EN</button>
+        </div>
 
-        <h1>MySimpleDo</h1>
-        <h2>Aplikasi Daftar Tugas Sederhana</h2>
+        <!-- Mute Button (NEW) -->
+        <button id="muteButton" class="mute-btn"><i class="fas fa-volume-up"></i></button>
+
+        <!-- Logo -->
+        <img src="mylogo.png" alt="MySimpleDo Logo" class="logo">
+
+        <!-- Judul -->
+        <h1 data-key="appName">MySimpleDo</h1>
+        <h2 data-key="appSubtitle">Aplikasi Daftar Tugas Sederhana</h2>
 
         <!-- Pencarian -->
         <div class="task-search">
-            <input type="text" id="searchTaskInput" placeholder="Cari tugas...">
+            <input type="text" id="searchTaskInput" placeholder="Cari tugas..." data-key="searchPlaceholder">
         </div>
 
-        <!-- Input tugas baru -->
-        <div class="task-input">
-            <input type="text" id="newTaskInput" placeholder="Tambahkan tugas baru...">
-            <button id="addTaskButton">Tambah Tugas</button>
+        <!-- Filter Tugas -->
+        <div class="task-filters">
+            <button id="filterAll" class="filter-btn active" data-key="filterAll">Semua</button>
+            <button id="filterPending" class="filter-btn" data-key="filterPending">Belum Selesai</button>
+            <button id="filterCompleted" class="filter-btn" data-key="filterCompleted">Selesai</button>
+            <button id="filterToday" class="filter-btn" data-key="filterToday">Hari Ini</button>
+            <button id="filterUpcoming" class="filter-btn" data-key="filterUpcoming">Mendatang</button>
+        </div>
+
+        <!-- Sortir Tugas -->
+        <div class="task-sorts">
+            <select id="sortBy">
+                <option value="none" data-key="sortNone">Urutkan Berdasarkan</option>
+                <option value="dueDateAsc" data-key="sortDueDateAsc">Jatuh Tempo (Naik)</option>
+                <option value="dueDateDesc" data-key="sortDueDateDesc">Jatuh Tempo (Turun)</option>
+                <option value="priorityHigh" data-key="sortPriorityHigh">Prioritas (Tinggi ke Rendah)</option>
+                <option value="priorityLow" data-key="sortPriorityLow">Prioritas (Rendah ke Tinggi)</option>
+                <option value="createdAtDesc" data-key="sortCreatedAtDesc">Terbaru Dibuat</option>
+                <option value="createdAtAsc" data-key="sortCreatedAtAsc">Terlama Dibuat</option>
+            </select>
+        </div>
+
+        <!-- Input untuk tugas baru -->
+        <div class="task-input-section">
+            <input type="text" id="newTaskInput" placeholder="Tambahkan tugas baru..." data-key="addTaskPlaceholder">
+            
+            <div class="task-meta-inputs">
+                <input type="datetime-local" id="newDueDate">
+                <select id="newPriority">
+                    <option value="low" data-key="priorityLow">Prioritas Rendah</option>
+                    <option value="medium" selected data-key="priorityMedium">Prioritas Sedang</option>
+                    <option value="high" data-key="priorityHigh">Prioritas Tinggi</option>
+                </select>
+            </div>
+            
+            <button id="addTaskButton" data-key="addTaskButton">Tambah Tugas</button>
         </div>
 
         <!-- Daftar tugas -->
-        <ul id="taskList" class="task-list">
-            <!-- Tugas akan ditampilkan oleh JavaScript -->
-        </ul>
+        <ul id="taskList" class="task-list"></ul>
+
+        <!-- Pesan saat daftar tugas kosong (NEW) -->
+        <div id="emptyListMessage" class="empty-list-message">
+            <p data-key="emptyListMsg">Tidak ada tugas di sini. Tambahkan satu!</p>
+            <i class="far fa-smile-beam"></i>
+        </div>
 
         <!-- Badge jumlah tugas -->
-        <div id="taskCountBadge" class="badge">Tugas: 0</div>
+        <div id="taskCountBadge" class="badge" data-key="tasksCount">Tugas: 0</div>
+
+        <!-- Pemilih Tema -->
+        <div class="theme-switcher">
+            <h3 data-key="chooseTheme">Pilih Tema:</h3>
+            <div class="theme-options">
+                <span class="theme-dot active" data-theme="rainbow"></span>
+                <span class="theme-dot" data-theme="blue"></span>
+                <span class="theme-dot" data-theme="green"></span>
+                <span class="theme-dot" data-theme="dark"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Konfirmasi Hapus Modal -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <p data-key="confirmDeleteMsg">Apakah Anda yakin ingin menghapus tugas ini?</p>
+            <button id="confirmDeleteBtn" data-key="yesButton">Ya</button>
+            <button id="cancelDeleteBtn" data-key="noButton">Tidak</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
-    <!-- Instagram Link -->
-    <div class="social-media">
-        <p>Follow me on Instagram: <a href="https://www.instagram.com/los.vagos_12/" target="_blank">los.vagos_12</a></p>
-    </div>
 </body>
 </html>

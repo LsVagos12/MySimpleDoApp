@@ -1,304 +1,641 @@
+/* Latar belakang dengan gradien pelangi bergerak */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding-top: 50px;
     box-sizing: border-box;
-    background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
-    background-size: 400% 400%; /* Makes the gradient larger */
-    animation: rainbowBackground 6s ease infinite; /* Animation for rainbow movement */
+    transition: background 0.5s ease;
 }
-@keyframes rainbowBackground {
+
+/* Keyframes untuk animasi gradien pelangi bergerak di body */
+@keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Sparkles/Glowing particles */
-@keyframes sparkle {
-    0% {
-        transform: translateY(-100px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-}
+/* Kontainer aplikasi utama */
+.container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    z-index: 1;
 
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7);
-    animation: sparkle 4s infinite;
     opacity: 0;
-    pointer-events: none;
+    transform: scale(0.8);
+    animation: fadeInBox 0.7s ease-out forwards;
+
+    border: 5px solid transparent;
+    background-clip: padding-box;
 }
 
-.particle:nth-child(1) {
-    width: 5px;
-    height: 5px;
-    animation-duration: 2s;
-}
-
-.particle:nth-child(2) {
-    width: 3px;
-    height: 3px;
-    animation-duration: 3s;
-}
-
-.particle:nth-child(3) {
-    width: 7px;
-    height: 7px;
-    animation-duration: 4s;
-}
-
-/* Meteor Particles */
-#meteorBackground {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.meteor {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background-color: white;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: meteor-fall linear infinite;
-}
-
-@keyframes meteor-fall {
-    0% {
-        transform: translateY(-100vh) translateX(0);
-    }
-    100% {
-        transform: translateY(100vh) translateX(calc(100vw * 0.5 - 50%));
-    }
-}
-
-/* Blur effect on the background */
-body::before {
+/* Pseudo-element untuk gradien border pelangi */
+.container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('images/my_app_background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    filter: blur(10px); /* Adjust the blur value here */
-    z-index: -1; /* Ensure background stays behind content */
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); 
+    background-size: 200% 200%;
+    animation: gradientBorder 3s linear infinite;
+    transition: background 0.5s ease;
 }
 
-/* Kontainer aplikasi */
-.container {
-  position: relative;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  z-index: 1;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Keyframes untuk animasi box muncul */
+@keyframes fadeInBox {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.container::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  z-index: -1;
-  border-radius: 10px;
-  background: linear-gradient(45deg, #4facfe, #00f2fe, #43e97b, #f8ffae); /* Gradien */
-  background-size: 200% 200%;
-  animation: gradientBorder 3s linear infinite; /* Animasi gradien */
+/* Keyframes untuk animasi gradien border bergerak */
+@keyframes gradientBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.container:hover {
-  animation: bounce 0.5s ease-in-out;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  cursor: url("images/mylogo.png"), auto;
+/* Pemilih Bahasa */
+.language-switcher {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    display: flex;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Keyframe for bouncing animation */
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-10px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  75% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+.lang-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+.lang-btn.active {
+    background: linear-gradient(to right, #23a6d5, #23d5ab);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.lang-btn:hover:not(.active) {
+    background-color: rgba(0,0,0,0.05);
+}
+
+/* Mute Button (NEW) */
+.mute-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: #333;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mute-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+
 /* Logo aplikasi */
 .logo {
-  max-width: 100px;
-  height: 100px; /* Tinggi dan lebar sama agar logo bulat */
-  border-radius: 50%; /* Membuat logo menjadi lingkaran */
-  margin: 0 auto 15px;
-  display: block;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+    max-width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Input pencarian tugas */
 .task-search input[type="text"] {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+.task-search input[type="text"]:focus {
+    border-color: #23a6d5;
+    box-shadow: 0 0 5px rgba(35, 166, 213, 0.5);
+    outline: none;
 }
 
-/* Input untuk tugas baru */
-.task-input {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+
+/* Filter Tugas */
+.task-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
-.task-input input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.filter-btn {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
 
-.task-input button {
-  padding: 10px 20px;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
-  border: none;
-  color: rgb(255, 255, 255);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
+.filter-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-.task-input button:hover {
-  background: linear-gradient(to right, #00f2fe, #4facfe);
+.filter-btn.active {
+    background: linear-gradient(to right, #ee7752, #e73c7e);
+    color: white;
+    border-color: #e73c7e;
+    transform: translateY(0); /* Remove lift for active */
 }
+
+/* Sortir Tugas */
+.task-sorts {
+    margin-bottom: 20px;
+}
+
+.task-sorts select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+.task-sorts select:focus {
+    border-color: #23a6d5;
+    box-shadow: 0 0 5px rgba(35, 166, 213, 0.5);
+    outline: none;
+}
+
+/* Bagian Input Tugas Baru (Wrapper) */
+.task-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input teks tugas */
+#newTaskInput {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+#newTaskInput:focus {
+    border-color: #23a6d5;
+    box-shadow: 0 0 5px rgba(35, 166, 213, 0.5);
+    outline: none;
+}
+
+
+/* Wrapper untuk input metadata (tanggal & prioritas) */
+.task-meta-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.task-meta-inputs input,
+.task-meta-inputs select {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+.task-meta-inputs input:focus,
+.task-meta-inputs select:focus {
+    border-color: #23a6d5;
+    box-shadow: 0 0 5px rgba(35, 166, 213, 0.5);
+    outline: none;
+}
+
+/* Tombol Tambah Tugas */
+#addTaskButton {
+    padding: 10px 20px;
+    background: linear-gradient(to right, #23a6d5, #23d5ab);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+#addTaskButton:hover {
+    background: linear-gradient(to right, #23d5ab, #23a6d5);
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+#addTaskButton:active {
+    transform: translateY(0); /* Press down effect */
+}
+
 
 /* Daftar tugas */
 .task-list {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .task-list li {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: fadeInTask 0.4s ease-out;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Hover effect for li */
 }
 
-@keyframes fadeInTask {
-  from {
+.task-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Animasi slide masuk */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; }
+    to { opacity: 1; transform: translateY(0); height: auto; padding-top: 10px; padding-bottom: 10px; margin-top: 8px; margin-bottom: 8px; }
+}
+
+.task-list li.new-item-added {
+    animation: slideIn 0.4s ease-out forwards;
+}
+
+/* Animasi slide keluar */
+.task-list li.removing {
+    animation: slideOut 0.4s ease-out forwards;
+}
+
+@keyframes slideOut {
+    from { opacity: 1; transform: translateY(0); height: auto; padding-top: 10px; padding-bottom: 10px; margin-top: 8px; margin-bottom: 8px; }
+    to { opacity: 0; transform: translateY(-20px); height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; }
+}
+
+/* Animasi confetti untuk tugas selesai */
+.task-list li.confetti-animation-active { /* Change class name to avoid conflict */
+    position: relative;
+    overflow: visible; /* Untuk menampilkan confetti di luar border li */
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #f00; /* Warna acak */
     opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    animation: confetti-fall 1s forwards;
+    pointer-events: none; /* Agar tidak menghalangi klik */
+    z-index: 5;
 }
 
+@keyframes confetti-fall {
+    0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+    100% { transform: translateY(100px) rotateZ(720deg); opacity: 0; }
+}
+
+/* Styling untuk deskripsi tugas */
+.task-list li .task-description {
+    flex-grow: 1;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    word-break: break-word;
+    display: block;
+    cursor: pointer; /* Menandakan bisa diklik untuk edit */
+}
+
+/* Edit Mode untuk deskripsi tugas */
+.task-list li .edit-input {
+    width: calc(100% - 20px);
+    padding: 5px;
+    border: 1px solid #23a6d5;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+
+/* Wrapper untuk metadata tugas (waktu, prioritas, due date) */
+.task-list li .task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.task-list li .task-timestamp,
+.task-list li .task-priority,
+.task-list li .task-duedate {
+    background-color: #e9ecef;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.3s ease; /* Hover effect */
+}
+.task-list li .task-timestamp:hover,
+.task-list li .task-priority:hover,
+.task-list li .task-duedate:hover {
+    background-color: #d1d9dd;
+}
+
+
+/* Warna untuk prioritas */
+.task-list li .task-priority.high { color: #dc3545; font-weight: bold; }
+.task-list li .task-priority.medium { color: #ffc107; }
+.task-list li .task-priority.low { color: #28a745; }
+
+/* Status tugas */
 .task-list li.completed {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  color: #155724;
-  text-decoration: line-through;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    text-decoration: line-through;
 }
 
 .task-list li.pending {
-  background-color: #fff3cd;
-  border-color: #ffeeba;
-  color: #b88a00;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
 }
+
+/* Wadah tombol aksi */
+.task-list li .task-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.task-list li .task-actions button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.task-list li .task-actions button:hover {
+    transform: translateY(-1px);
+}
+.task-list li .task-actions button:active {
+    transform: translateY(0);
+}
+
+
+.task-list li .task-actions .complete-btn { background-color: #28a745; }
+.task-list li .task-actions .complete-btn:hover { background-color: #218838; }
+.task-list li .task-actions .edit-btn { background-color: #007bff; }
+.task-list li .task-actions .edit-btn:hover { background-color: #0056b3; }
+.task-list li .task-actions .delete-btn { background-color: #dc3545; }
+.task-list li .task-actions .delete-btn:hover { background-color: #c82333; }
+.task-list li .task-actions .save-edit-btn { background-color: #23a6d5; }
+.task-list li .task-actions .save-edit-btn:hover { background-color: #1a7ab8; }
+.task-list li .task-actions .cancel-edit-btn { background-color: #6c757d; }
+.task-list li .task-actions .cancel-edit-btn:hover { background-color: #5a6268; }
+
+
+/* Pesan saat daftar tugas kosong (NEW) */
+.empty-list-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 1.1em;
+    text-align: center;
+    opacity: 0; /* Hidden by default, JS will control */
+    transition: opacity 0.5s ease;
+}
+
+.empty-list-message i {
+    font-size: 3em;
+    margin-top: 15px;
+    color: #ccc;
+}
+
 
 /* Badge jumlah tugas */
 .badge {
-  background-color: white;
-  color: #4facfe;
-  padding: 10px 20px;
-  margin-top: 15px;
-  border-radius: 50px;
-  font-size: 0.95em;
-  font-weight: bold;
-}
-/* Styling untuk bagian Instagram */
-.social-media {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  color: #333;
+    background-color: white;
+    color: #ee7752;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 50px;
+    font-size: 0.95em;
+    font-weight: bold;
 }
 
-.social-media p {
-  font-size: 16px;
-  margin: 0;
-  display: inline-block; /* Make the p tag inline for background effect */
-  padding: 10px 20px; /* Add padding to make the background box */
-  border-radius: 25px; /* Round the corners */
-  background-color: #f1f1f1; /* Light gray background */
-  transition: background-color 0.3s ease, transform 0.3s ease;
+/* Konfirmasi Hapus Modal */
+.modal {
+    display: none; /* Sembunyikan secara default */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
 }
 
-.social-media a {
-  color: #55f425; /* Instagram orange color */
-  text-decoration: none;
-  font-weight: 700;
-  transition: color 0.3s ease;
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.social-media p:hover {
-  background-color: #2ceb0a; /* Instagram orange color on hover */
-  transform: scale(1.05); /* Slight zoom-in effect on hover */
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
 }
 
-.social-media a:hover {
-  color: #fff; /* Change link color to white on hover */
-}
-/* Glowing Text for content */
-h1, h2 {
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(33, 33, 33, 0.6), 0 0 30px rgba(0, 255, 255, 0.8);
-    color: white;
-    font-weight: 600;
+.modal-content button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
 }
 
-/* Buttons or links can have a glowing effect too */
-.task-input button:hover {
-    box-shadow: 0 0 15px rgba(0, 255, 255, 1);
+#confirmDeleteBtn {
+    background-color: #dc3545;
     color: white;
 }
 
+#cancelDeleteBtn {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Pemilih Tema */
+.theme-switcher {
+    margin-top: 30px;
+}
+
+.theme-switcher h3 {
+    color: #eee;
+    margin-bottom: 15px;
+}
+
+.theme-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.theme-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.theme-dot:hover {
+    border: 2px solid white;
+}
+
+.theme-dot.active {
+    border: 4px solid white;
+}
+
+/* Warna-warna tema */
+.theme-dot[data-theme="rainbow"] {
+    background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+}
+.theme-dot[data-theme="blue"] {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+}
+.theme-dot[data-theme="green"] {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+}
+.theme-dot[data-theme="dark"] {
+    background: linear-gradient(45deg, #333, #000);
+}
+
+
+/* Tema Khusus (saat class ditambahkan ke body) */
+body.theme-blue {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+body.theme-green {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+body.theme-dark {
+    background: linear-gradient(45deg, #333, #000);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+/* Border container untuk tema */
+body.theme-blue .container::before {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+}
+body.theme-green .container::before {
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+}
+body.theme-dark .container::before {
+    background: linear-gradient(45deg, #333, #000);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        width: 95%;
+    }
+    .task-filters, .task-meta-inputs {
+        flex-direction: column; /* Stack buttons/inputs vertically on small screens */
+    }
+    .filter-btn, .task-meta-inputs input, .task-meta-inputs select {
+        width: 100%;
+    }
+    .language-switcher, .mute-btn {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+    .mute-btn {
+        left: 10px; /* Adjust position for mute button */
+    }
+    .theme-switcher h3 {
+        font-size: 1em;
+    }
+    .theme-options {
+        gap: 10px;
+    }
+    .theme-dot {
+        width: 25px;
+        height: 25px;
+    }
+}
