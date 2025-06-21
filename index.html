@@ -12,6 +12,9 @@
     <!-- Latar belakang dengan gradien pelangi -->
     <div class="background"></div>
 
+    <!-- Mute Button (DI LUAR CONTAINER, FIXED) -->
+    <button id="muteButton" class="mute-btn"><i class="fas fa-volume-up"></i></button>
+
     <!-- Kontainer aplikasi -->
     <div class="container">
         <!-- Pemilih Bahasa -->
@@ -19,9 +22,6 @@
             <button id="lang-id" class="lang-btn active" data-lang="id">ID</button>
             <button id="lang-en" class="lang-btn" data-lang="en">EN</button>
         </div>
-
-        <!-- Mute Button (NEW) -->
-        <button id="muteButton" class="mute-btn"><i class="fas fa-volume-up"></i></button>
 
         <!-- Logo -->
         <img src="mylogo.png" alt="MySimpleDo Logo" class="logo">
@@ -76,7 +76,7 @@
         <!-- Daftar tugas -->
         <ul id="taskList" class="task-list"></ul>
 
-        <!-- Pesan saat daftar tugas kosong (NEW) -->
+        <!-- Pesan saat daftar tugas kosong -->
         <div id="emptyListMessage" class="empty-list-message">
             <p data-key="emptyListMsg">Tidak ada tugas di sini. Tambahkan satu!</p>
             <i class="far fa-smile-beam"></i>
