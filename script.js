@@ -640,3 +640,41 @@ function updateMuteButtonIcon() {
 
 // Muat tugas saat halaman pertama kali dimuat
 document.addEventListener('DOMContentLoaded', loadTasks);
+
+// --- Filter Tasks Functions ---
+// Event listener for filter buttons
+filterAllButton.addEventListener('click', () => {
+    currentFilter = 'all';
+    setActiveFilterButton(filterAllButton); // Add active class
+    displayTasks();
+});
+filterPendingButton.addEventListener('click', () => {
+    currentFilter = 'pending';
+    setActiveFilterButton(filterPendingButton); // Add active class
+    displayTasks();
+});
+filterCompletedButton.addEventListener('click', () => {
+    currentFilter = 'completed';
+    setActiveFilterButton(filterCompletedButton); // Add active class
+    displayTasks();
+});
+filterTodayButton.addEventListener('click', () => {
+    currentFilter = 'today';
+    setActiveFilterButton(filterTodayButton); // Add active class
+    displayTasks();
+});
+filterUpcomingButton.addEventListener('click', () => {
+    currentFilter = 'upcoming';
+    setActiveFilterButton(filterUpcomingButton); // Add active class
+    displayTasks();
+});
+
+// Function to set the active filter button
+function setActiveFilterButton(activeButton) {
+    // Remove the 'active' class from all filter buttons
+    [filterAllButton, filterPendingButton, filterCompletedButton, filterTodayButton, filterUpcomingButton]
+        .forEach(button => button.classList.remove('active'));
+
+    // Add the 'active' class to the clicked button
+    activeButton.classList.add('active');
+}
